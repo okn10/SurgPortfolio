@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neurosurgery Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --surface: #0b1120;
+    --surface2: #0f1929;
+    --surface3: #131f33;
+    --accent: #2563eb;
+    --accent2: #1d4ed8;
+    --accent-glow: rgba(37,99,235,0.15);
+    --accent-bright: #60a5fa;
+    --border: rgba(37,99,235,0.2);
+    --border-bright: rgba(96,165,250,0.35);
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #475569;
+    --green: #10b981;
+    --green-dim: rgba(16,185,129,0.12);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  /* Grid overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(37,99,235,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,99,235,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(5,8,16,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+  }
+  .logo span { color: var(--text3); }
+  .header-right { display: flex; gap: 12px; align-items: center; }
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent-bright); background: var(--accent-glow); }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent2); color: #fff; }
+  .save-indicator {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    display: flex; align-items: center; gap: 5px;
+  }
+  .save-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 1;
+    padding: 60px 40px 40px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent-bright);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hero-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+  .name-display {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .name-display .surname { color: var(--accent-bright); }
+  .hero-sub {
+    font-size: 14px; color: var(--text2);
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  /* Score dashboard */
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .dash-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .dash-card:hover { border-color: var(--border-bright); }
+  .dash-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .dash-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .dash-score {
+    font-family: 'Outfit', sans-serif;
+    font-size: 38px; font-weight: 700;
+    line-height: 1;
+    color: var(--accent-bright);
+  }
+  .dash-max { font-size: 15px; color: var(--text3); font-weight: 400; font-family: 'Outfit', sans-serif; }
+  .dash-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text2);
+    margin-top: 6px;
+  }
+  .progress-bar-wrap {
+    margin-top: 10px;
+    height: 3px; background: rgba(255,255,255,0.06);
+    border-radius: 2px; overflow: hidden;
+  }
+  .progress-bar { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s; }
+  .progress-bar.good { background: var(--green); }
+  .progress-bar.warn { background: var(--amber); }
+  .appoint-threshold {
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text3);
+    margin-top: 6px;
+  }
+  .appoint-threshold .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
+
+  /* ── SECTION NAV ── */
+  .nav-pills {
+    position: relative; z-index: 1;
+    padding: 0 40px 24px;
+    max-width: 1200px; margin: 0 auto;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .pill:hover { border-color: var(--accent); color: var(--accent-bright); background: var(--accent-glow); }
+
+  /* ── MAIN CONTENT ── */
+  .main { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 40px 80px; }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text3);
+    padding: 32px 0 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* Domain cards */
+  .domain-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .domain-card:hover { border-color: var(--border-bright); }
+  .domain-header {
+    padding: 20px 24px;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .domain-header:hover .domain-name { color: var(--accent-bright); }
+  .domain-left { flex: 1; }
+  .domain-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px; font-weight: 600;
+    transition: color 0.15s;
+    margin-bottom: 4px;
+  }
+  .domain-desc { font-size: 12px; color: var(--text2); }
+  .domain-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+  .score-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 500;
+    padding: 4px 12px; border-radius: 20px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+  }
+  .score-badge.full { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+  .score-badge.partial { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); }
+  .score-badge.zero { color: var(--text3); }
+  .chevron { color: var(--text3); font-size: 12px; transition: transform 0.2s; }
+  .domain-card.open .chevron { transform: rotate(180deg); }
+
+  .domain-body { display: none; border-top: 1px solid var(--border); }
+  .domain-card.open .domain-body { display: block; }
+
+  .domain-body-inner { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media(max-width: 700px) { .domain-body-inner { grid-template-columns: 1fr; } }
+
+  /* Scoring guide */
+  .scoring-guide { }
+  .guide-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--accent-bright);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .score-tier {
+    display: flex; gap: 12px;
+    padding: 8px 12px; border-radius: 8px;
+    margin-bottom: 6px;
+    border: 1px solid transparent;
+    font-size: 12px;
+    transition: background 0.15s;
+  }
+  .score-tier:hover { background: var(--surface3); border-color: var(--border); }
+  .tier-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; font-weight: 500;
+    min-width: 24px; color: var(--accent-bright);
+  }
+  .tier-desc { color: var(--text2); line-height: 1.5; }
+
+  /* Entry section */
+  .entries-panel { }
+  .entries-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px;
+  }
+  .score-setter {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text2);
+  }
+  .score-input {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; font-weight: 500;
+    width: 56px; padding: 5px 8px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .score-input:focus { border-color: var(--accent); }
+
+  .entries-list { margin-bottom: 12px; }
+  .entry-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+  }
+  .entry-content { flex: 1; font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .entry-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text3);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .del-btn {
+    background: none; border: none;
+    color: var(--text3); cursor: pointer;
+    font-size: 14px; padding: 0 2px;
+    transition: color 0.15s;
+    flex-shrink: 0;
+  }
+  .del-btn:hover { color: var(--red); }
+  .empty-state {
+    padding: 16px; border-radius: 8px;
+    border: 1px dashed var(--border);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text3);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .add-entry-wrap { display: flex; gap: 8px; }
+  .entry-input {
+    flex: 1;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    padding: 9px 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    resize: none;
+  }
+  .entry-input:focus { border-color: var(--accent); }
+  .entry-input::placeholder { color: var(--text3); }
+  .add-btn {
+    background: var(--accent);
+    border: none; border-radius: 8px;
+    color: #fff; cursor: pointer;
+    font-size: 18px; padding: 0 16px;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .add-btn:hover { background: var(--accent2); }
+
+  /* Strategy tip */
+  .strategy-tip {
+    margin: 0 24px 24px;
+    background: rgba(37,99,235,0.06);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .strategy-tip strong { color: var(--accent-bright); font-weight: 500; }
+
+  /* Notes */
+  .notes-wrap { padding: 0 24px 24px; }
+  .notes-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--text3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .notes-area {
+    width: 100%;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text2);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; line-height: 1.6;
+    padding: 12px;
+    outline: none; resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.15s;
+  }
+  .notes-area:focus { border-color: var(--accent); }
+  .notes-area::placeholder { color: var(--text3); }
+
+  /* Interview section */
+  .interview-card {
+    background: var(--surface);
+    border: 1px solid rgba(37,99,235,0.3);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .int-header {
+    padding: 18px 24px;
+    display: flex; align-items: center; gap: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .int-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--accent-glow);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .int-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; }
+  .int-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .int-body { display: none; border-top: 1px solid var(--border); padding: 20px 24px; }
+  .interview-card.open .int-body { display: block; }
+  .int-body p { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 12px; }
+  .int-body strong { color: var(--text); }
+  .prep-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 12px; border-radius: 8px;
+    margin-bottom: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    font-size: 12px; color: var(--text2); line-height: 1.5;
+  }
+  .prep-check {
+    width: 16px; height: 16px; border-radius: 4px;
+    border: 1px solid var(--border); flex-shrink: 0;
+    cursor: pointer; background: transparent; margin-top: 1px;
+    transition: all 0.15s; appearance: none;
+  }
+  .prep-check:checked { background: var(--accent); border-color: var(--accent); }
+  .prep-check:checked + span { color: var(--text3); text-decoration: line-through; }
+
+  /* Timeline */
+  .timeline { margin-top: 8px; }
+  .tl-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; color: var(--accent-bright);
+    min-width: 120px; flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .tl-event { font-size: 12px; color: var(--text2); }
+  .tl-event strong { color: var(--text); font-weight: 500; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+  /* Modal for name edit */
+  .modal-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .modal-backdrop.show { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 16px;
+    padding: 32px;
+    width: 360px;
+    position: relative;
+  }
+  .modal h2 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+  .modal label { font-size: 11px; color: var(--text3); font-family: 'DM Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 6px; margin-top: 14px; }
+  .modal input, .modal select {
+    width: 100%;
+    background: var(--surface3); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    padding: 10px 12px; outline: none;
+    transition: border-color 0.15s;
+  }
+  .modal input:focus, .modal select:focus { border-color: var(--accent); }
+  .modal-btns { display: flex; gap: 10px; margin-top: 24px; }
+  .modal-btns .btn { flex: 1; text-align: center; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div style="display:flex;align-items:center;gap:16px">
+    <a href="index.html" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;transition:color 0.15s" onmouseover="this.style.color='var(--accent-bright)'" onmouseout="this.style.color='var(--text3)'">← Home</a>
+    <div class="logo">NS<span>/</span>Portfolio</div>
+  </div>
+  <div class="header-right">
+    <span class="save-indicator"><span class="save-dot"></span> Auto-saved</span>
+    <button class="btn" onclick="openModal()">Edit Profile</button>
+    <button class="btn btn-primary" onclick="exportPDF()">Export PDF</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Neurosurgery ST1 National Recruitment</div>
+  <div class="name-display" id="hero-name">
+    <span id="display-name">Your Name</span> <span class="surname" id="display-year">MS4</span>
+  </div>
+  <div class="hero-sub" id="display-school">University &mdash; Aspiring Neurosurgeon</div>
+  <div class="dashboard">
+    <div class="dash-card">
+      <div class="dash-label">Shortlisting score</div>
+      <div class="dash-score" id="total-score">0</div><span class="dash-max"> / 36</span>
+      <div class="dash-pct" id="total-pct">0%</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="main-bar" style="width:0%"></div></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-label">ST1 appointable threshold</div>
+      <div class="dash-score" style="color:var(--amber)">65%</div>
+      <div class="dash-pct">23.4 / 36 marks</div>
+      <div class="progress-bar-wrap"><div class="progress-bar warn" style="width:65%"></div></div>
+      <div class="appoint-threshold"><span class="dot"></span>You need ≥65% to be appointable</div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-label">Domains completed</div>
+      <div class="dash-score" id="domains-done">0</div><span class="dash-max"> / 15</span>
+      <div class="dash-pct" id="domains-pct">0%</div>
+      <div class="progress-bar-wrap"><div class="progress-bar good" id="domains-bar" style="width:0%"></div></div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-label">Max available score</div>
+      <div class="dash-score" style="color:var(--green)">36</div>
+      <div class="dash-pct">MSRA = additional 40%</div>
+      <div class="progress-bar-wrap"><div class="progress-bar good" style="width:100%"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV PILLS -->
+<div class="nav-pills">
+  <a class="pill" href="#undergraduate">Undergraduate</a>
+  <a class="pill" href="#degrees">Degrees</a>
+  <a class="pill" href="#academic">Academic output</a>
+  <a class="pill" href="#clinical">Clinical</a>
+  <a class="pill" href="#interview">Interview prep</a>
+  <a class="pill" href="#timeline">Key dates</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- UNDERGRADUATE -->
+  <div class="section-title" id="undergraduate">Undergraduate domains</div>
+
+  <!-- 1. Undergrad career -->
+  <div class="domain-card" id="dom-0">
+    <div class="domain-header" onclick="toggle('dom-0')">
+      <div class="domain-left">
+        <div class="domain-name">Undergraduate career</div>
+        <div class="domain-desc">Research, audit, QIPs, prizes and awards</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-0">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No undergraduate research, audit, QIP or prizes</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Completed audit or QIP; OR minor undergraduate prize (e.g. dean's list mention)</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Significant prize (e.g. best student at surgical society); OR case report published; OR multiple audits</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">Multiple undergraduate publications; national/international prizes; significant named research award</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-0" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-0"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-0" placeholder="Add achievement (e.g. Best oral presentation, Surgical Society symposium 2025)..." onkeydown="if(event.key==='Enter')addEntry(0)">
+            <button class="add-btn" onclick="addEntry(0)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Start now — enter any surgical society prize, present at a student symposium, complete a QIP with your supervisor. A published case report in JSCR or BMJ Case Reports is achievable as a student. Aim for at least one named prize at a national student surgical competition (ASIT, RSM surgical societies all run student prizes).</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-0" placeholder="Personal notes, plans, contacts..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Electives -->
+  <div class="domain-card" id="dom-1">
+    <div class="domain-header" onclick="toggle('dom-1')">
+      <div class="domain-left">
+        <div class="domain-name">Undergraduate clinical electives &amp; attachments</div>
+        <div class="domain-desc">Neurosurgery-specific exposure during medical school</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-1">0 / 2</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No neurosurgery-specific elective or attachment</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Neurosurgery attachment in the UK as SSC or student observer</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Dedicated neurosurgery elective, especially international (e.g. Canada, Australia, USA, India); OR two or more separate attachments</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="2" id="score-1" value="0" onchange="updateScores()"> / 2
+            </div>
+          </div>
+          <div class="entries-list" id="entries-1"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-1" placeholder="Add elective (e.g. 6-week elective at Toronto Western, Neurosurgery, 2026)..." onkeydown="if(event.key==='Enter')addEntry(1)">
+            <button class="add-btn" onclick="addEntry(1)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Use your student elective for neurosurgery — this is the single highest-leverage use of that time for this application. Top destinations: Toronto Western (Canada), Royal Melbourne, Westmead (Australia), All India Institute. In the UK: NHNN Queen Square, Addenbrooke's, Manchester, Leeds. Secure a place 12–18 months in advance. Also do an SSC in neurosurgery — most UK schools have one available.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-1" placeholder="Elective plans, contacts at units, application deadlines..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEGREES -->
+  <div class="section-title" id="degrees">Degrees &amp; qualifications</div>
+
+  <!-- 3. Higher degree -->
+  <div class="domain-card" id="dom-2">
+    <div class="domain-header" onclick="toggle('dom-2')">
+      <div class="domain-left">
+        <div class="domain-name">Higher degree</div>
+        <div class="domain-desc">PhD, MD or Masters involving full-time original research</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-2">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No higher degree (excludes intercalated degrees)</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Enrolled in / in progress — Masters or PhD</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Completed Masters (MSc/MRes) by thesis in relevant subject</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">Completed PhD or MD (full-time original research)</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-2" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-2"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-2" placeholder="Add degree (e.g. MSc Neuroscience, UCL, 2027–2028)..." onkeydown="if(event.key==='Enter')addEntry(2)">
+            <button class="add-btn" onclick="addEntry(2)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> An Academic Foundation year (AFP) with a neuroscience/neurosurgery project is the cleanest path if you want to do a PhD later. An MSc or MRes between FY2 and CST is very achievable — UCL, Imperial, Oxford all have neuroscience MSc programmes. A PhD is the gold standard but adds 3 years; consider whether it aligns with your academic and business interests. Many successful neurosurgeons do an MD (research thesis) during training rather than pre-CST.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-2" placeholder="Programme options, supervisors of interest, funding sources..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. BSc -->
+  <div class="domain-card" id="dom-3">
+    <div class="domain-header" onclick="toggle('dom-3')">
+      <div class="domain-left">
+        <div class="domain-name">First degree in medical sciences</div>
+        <div class="domain-desc">BSc, BMedSci, MRes — excluding intercalated degrees as part of the medical course</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-3">0 / 2</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No standalone science degree (note: intercalated degree does NOT count)</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Standalone BSc/BMedSci completed prior to medical school or as a separate degree</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Standalone BSc/BMedSci/MRes with distinction or in directly relevant field (neuroscience, applied neuroscience)</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="2" id="score-3" value="0" onchange="updateScores()"> / 2
+            </div>
+          </div>
+          <div class="entries-list" id="entries-3"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-3" placeholder="Add degree..." onkeydown="if(event.key==='Enter')addEntry(3)">
+            <button class="add-btn" onclick="addEntry(3)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> If you did a separate science degree before medicine this counts. If your medical school has a standalone intercalated year that awards a full BMedSci (not just an integrated intercalated BSc), this may count — check the wording carefully. If you don't have one, focus energy on the higher degree domain instead as it offers more marks.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-3" placeholder="Notes..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Other degrees -->
+  <div class="domain-card" id="dom-4">
+    <div class="domain-header" onclick="toggle('dom-4')">
+      <div class="domain-left">
+        <div class="domain-name">Other degrees &amp; diplomas</div>
+        <div class="domain-desc">Any relevant additional qualifications</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-4">0 / 1</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No additional qualifications</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Additional relevant degree or postgraduate diploma (e.g. MBA, PGCert, law degree, engineering degree, DFSRH)</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="1" id="score-4" value="0" onchange="updateScores()"> / 1
+            </div>
+          </div>
+          <div class="entries-list" id="entries-4"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-4" placeholder="Add qualification..." onkeydown="if(event.key==='Enter')addEntry(4)">
+            <button class="add-btn" onclick="addEntry(4)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Your business background could be formalised here. An MBA or business-related qualification taken alongside your medical career would score here and is directly relevant to your entrepreneurial ambitions. A PGCert in Medical Education is another common route during FY. One mark available — easy to secure with any postgraduate diploma.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-4" placeholder="Notes..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACADEMIC OUTPUT -->
+  <div class="section-title" id="academic">Academic output</div>
+
+  <!-- 6. PG research -->
+  <div class="domain-card" id="dom-5">
+    <div class="domain-header" onclick="toggle('dom-5')">
+      <div class="domain-left">
+        <div class="domain-name">Postgraduate research</div>
+        <div class="domain-desc">Evidence of research activity after graduation</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-5">0 / 1</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No postgraduate research activity</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Evidence of involvement in postgraduate research (e.g. active project, registered for degree, collaborative study)</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="1" id="score-5" value="0" onchange="updateScores()"> / 1
+            </div>
+          </div>
+          <div class="entries-list" id="entries-5"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-5" placeholder="Add research project..." onkeydown="if(event.key==='Enter')addEntry(5)">
+            <button class="add-btn" onclick="addEntry(5)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> One mark and easy to get — contact a neurosurgery registrar or consultant now as a student and ask to be involved in an ongoing research project as a collaborator. Even being on a multicentre study as a data collector qualifies. The British Neurosurgical Trainee Research Collaborative (BNTRC) runs national trainee-led studies that students can join.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-5" placeholder="Projects, supervisors, BNTRC contacts..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. PG awards -->
+  <div class="domain-card" id="dom-6">
+    <div class="domain-header" onclick="toggle('dom-6')">
+      <div class="domain-left">
+        <div class="domain-name">Postgraduate academic awards &amp; prizes</div>
+        <div class="domain-desc">Prizes and awards gained after medical school</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-6">0 / 2</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No postgraduate prizes</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">One relevant postgraduate prize or award</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Multiple prizes or a highly prestigious award (national/international)</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="2" id="score-6" value="0" onchange="updateScores()"> / 2
+            </div>
+          </div>
+          <div class="entries-list" id="entries-6"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-6" placeholder="Add prize/award..." onkeydown="if(event.key==='Enter')addEntry(6)">
+            <button class="add-btn" onclick="addEntry(6)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Target SBNS (Society of British Neurological Surgeons) trainee prizes, BNTRC prize presentations, and BNTA (British Neurosurgical Trainees Association) events. During FY, enter hospital or deanery FY research prizes. Prize entries require submissions — build a habit of converting your projects into competition entries.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-6" placeholder="Target competitions, deadlines..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. PG courses -->
+  <div class="domain-card" id="dom-7">
+    <div class="domain-header" onclick="toggle('dom-7')">
+      <div class="domain-left">
+        <div class="domain-name">Postgraduate clinical courses</div>
+        <div class="domain-desc">Relevant surgical and clinical courses completed</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-7">0 / 2</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No postgraduate clinical courses</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">One relevant course (e.g. ATLS, ALS, ALSO)</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Two or more relevant courses; particularly ATLS + at least one neurosurgery-specific course</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="2" id="score-7" value="0" onchange="updateScores()"> / 2
+            </div>
+          </div>
+          <div class="entries-list" id="entries-7"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-7" placeholder="Add course (e.g. ATLS Provider, RCS England, March 2027)..." onkeydown="if(event.key==='Enter')addEntry(7)">
+            <button class="add-btn" onclick="addEntry(7)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> ATLS is the most important — do it as early as possible in FY. ALS is expected. Neurosurgery-specific: the BNTA/SBNS introductory neurosurgery course, RCS simulation courses, cadaveric spine courses. Also worth doing: Basic Surgical Skills (BSS) during FY. Two marks available and fully achievable by the end of FY2.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-7" placeholder="Course plans, booking dates, costs..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Publications -->
+  <div class="domain-card" id="dom-8">
+    <div class="domain-header" onclick="toggle('dom-8')">
+      <div class="domain-left">
+        <div class="domain-name">Publications</div>
+        <div class="domain-desc">Accepted for publication as minimum standard</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-8">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No publications</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">One publication (e.g. case report, letter, collaborative authorship on multicentre study)</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">2–3 publications OR one first-author original research article in peer-reviewed journal</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">Multiple publications including first-author original research; high-impact journal presence; systematic review as first author</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-8" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-8"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-8" placeholder="Add publication (e.g. First author. Title. Journal. Year. DOI)..." onkeydown="if(event.key==='Enter')addEntry(8)">
+            <button class="add-btn" onclick="addEntry(8)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> This is the highest-leverage academic domain. Start with a case report as a student (JSCR, BMJ Case Reports). Then aim for a systematic review or meta-analysis (manageable as a medical student with support). Join BNTRC multicentre studies for collaborative authorship. By the time you apply for ST1, aim for at least 2 publications with one as first author. Neurosurgery-friendly journals: British Journal of Neurosurgery, Acta Neurochirurgica, JNNP, World Neurosurgery.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-8" placeholder="Projects in progress, submission targets, collaborators..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Presentations -->
+  <div class="domain-card" id="dom-9">
+    <div class="domain-header" onclick="toggle('dom-9')">
+      <div class="domain-left">
+        <div class="domain-name">Presentations</div>
+        <div class="domain-desc">Oral and poster presentations at scientific meetings</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-9">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No presentations</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Local or regional presentation (e.g. hospital grand rounds, deanery day)</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">National presentation (e.g. SBNS, BNTA, ASiT, RCS Surgical Research Society)</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">International oral presentation (e.g. CNS, EANS, WFNS, AANS/CNS joint meeting)</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-9" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-9"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-9" placeholder="Add presentation (e.g. Oral. SBNS Annual Meeting. Edinburgh. October 2027)..." onkeydown="if(event.key==='Enter')addEntry(9)">
+            <button class="add-btn" onclick="addEntry(9)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Every project you do should end in a presentation. Submit abstracts aggressively — rejection rates for poster presentations are low. SBNS annual meeting, BNTA annual meeting, and ASiT are key targets. For 3 marks you need an international oral — realistically achievable by the end of FY if you have a good project. CNS annual meeting (USA) accepts strong abstracts from international trainees.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-9" placeholder="Upcoming conference deadlines, abstract submissions in progress..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLINICAL -->
+  <div class="section-title" id="clinical">Clinical &amp; professional</div>
+
+  <!-- 11. Audit/QIP -->
+  <div class="domain-card" id="dom-10">
+    <div class="domain-header" onclick="toggle('dom-10')">
+      <div class="domain-left">
+        <div class="domain-name">Clinical audit &amp; quality improvement projects</div>
+        <div class="domain-desc">Completed audits and QIPs with evidence of change</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-10">0 / 2</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No completed audit or QIP</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">One completed audit or QIP</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Multiple audits/QIPs OR completed re-audit demonstrating closure of the loop; OR QIP with measurable service improvement</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="2" id="score-10" value="0" onchange="updateScores()"> / 2
+            </div>
+          </div>
+          <div class="entries-list" id="entries-10"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-10" placeholder="Add audit/QIP (e.g. Re-audit of VTE prophylaxis in neurosurgical patients, Leeds, 2027 — loop closed)..." onkeydown="if(event.key==='Enter')addEntry(10)">
+            <button class="add-btn" onclick="addEntry(10)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Start as a student — many neurosurgical units are happy to have students lead audits. Pick something measurable: antibiotic prophylaxis compliance, VTE prophylaxis, WHO checklist use, consent documentation. The key for 2 marks is completing the cycle: audit → intervention → re-audit. Do this and write it up as a QIP for a bonus publication (BMJ Open Quality publishes QIPs).</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-10" placeholder="Projects, supervisors, re-audit plans..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. Leadership -->
+  <div class="domain-card" id="dom-11">
+    <div class="domain-header" onclick="toggle('dom-11')">
+      <div class="domain-left">
+        <div class="domain-name">Organisational &amp; leadership skills</div>
+        <div class="domain-desc">Roles demonstrating leadership, organisation and initiative</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-11">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No evidence of organisational or leadership roles</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Local roles (e.g. student society officer, committee member)</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Significant role (e.g. student society president, foundation doctor rep, local teaching programme lead)</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">National-level role (e.g. national trainee society officer, RCS student committee, regional FY rep); OR founding/running an organisation; OR clear evidence of major service development</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-11" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-11"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-11" placeholder="Add role (e.g. President, University Surgical Society, 2025–2026)..." onkeydown="if(event.key==='Enter')addEntry(11)">
+            <button class="add-btn" onclick="addEntry(11)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Your entrepreneurial background is a genuine asset here — founding or running a business is strong evidence of leadership at the 2–3 mark level. Also: become president of your surgical or neuroscience society at university. Aim for a national student role (Student BMJ editorial team, RCS student committee, AMSN – Association of Medical Students in Neuroscience). 3 marks is achievable with combined business + national medical role evidence.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-11" placeholder="Roles held, applications in progress, business activities..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. Practical skills -->
+  <div class="domain-card" id="dom-12">
+    <div class="domain-header" onclick="toggle('dom-12')">
+      <div class="domain-left">
+        <div class="domain-name">Practical &amp; psychomotor skills</div>
+        <div class="domain-desc">Operative exposure, surgical skills courses, simulation</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-12">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No evidence of surgical skills or operative exposure beyond standard medical school</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Basic surgical skills (BSS course); some procedural competencies; limited operative experience</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">BSS + additional surgical skills course; good operative logbook; demonstrated competence in relevant procedures</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">Extensive and documented operative exposure in neurosurgery; multiple skills courses including simulation; evidence of independent surgical skills; logbook with significant neurosurgical cases</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-12" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-12"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-12" placeholder="Add skill/course/operative experience..." onkeydown="if(event.key==='Enter')addEntry(12)">
+            <button class="add-btn" onclick="addEntry(12)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Keep a logbook from day one. Note every procedure you observe or assist with in neurosurgery — even holding a retractor counts. Do BSS during FY1, then add a simulation course. The SBNS runs cadaveric microsurgery and spine courses for trainees — attend as soon as eligible. Extra-curricular: suturing workshops as a student, laparoscopic simulation boxes, 3D-printed brain tumour resection simulators (emerging). Use your elective to scrub in — ask to hold instruments, assist, get supervised time with the microscope.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-12" placeholder="Logbook entries, courses planned, simulation opportunities..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. Teaching -->
+  <div class="domain-card" id="dom-13">
+    <div class="domain-header" onclick="toggle('dom-13')">
+      <div class="domain-left">
+        <div class="domain-name">Teaching</div>
+        <div class="domain-desc">Formal and informal teaching roles and qualifications</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-13">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">No evidence of teaching</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Informal peer teaching, bedside teaching of juniors</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Regular structured teaching programme (e.g. running anatomy sessions, student OSCE teaching, FY teaching series); documented and evaluated</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">Postgraduate teaching qualification (PGCert Medical Education); published curriculum/teaching resource; national teaching award; running a recognised teaching programme</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">My entries</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-13" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-13"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-13" placeholder="Add teaching role (e.g. Lead, Neuroscience Peer Teaching Programme, 12 sessions, evaluated)..." onkeydown="if(event.key==='Enter')addEntry(13)">
+            <button class="add-btn" onclick="addEntry(13)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Set up a structured anatomy or neuroscience teaching programme at your medical school — this is easy to do, valued by students, and gives you documented evidence. Collect feedback forms. A PGCert in Medical Education during FY is doable part-time and gives 3 marks if combined with other teaching evidence. Key: documentation and evaluation. Undocumented teaching scores nothing.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes</div>
+        <textarea class="notes-area" id="notes-13" placeholder="Teaching roles, PGCert plans, programmes running..." onchange="save()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. Personal statement -->
+  <div class="domain-card" id="dom-14">
+    <div class="domain-header" onclick="toggle('dom-14')">
+      <div class="domain-left">
+        <div class="domain-name">Personal statement</div>
+        <div class="domain-desc">Motivation, suitability and understanding of neurosurgery</div>
+      </div>
+      <div class="domain-right">
+        <div class="score-badge zero" id="badge-14">0 / 3</div>
+        <span class="chevron">▼</span>
+      </div>
+    </div>
+    <div class="domain-body">
+      <div class="domain-body-inner">
+        <div class="scoring-guide">
+          <div class="guide-title">Scoring guide</div>
+          <div class="score-tier"><span class="tier-num">0</span><span class="tier-desc">Generic, vague or poorly structured statement</span></div>
+          <div class="score-tier"><span class="tier-num">1</span><span class="tier-desc">Demonstrates awareness of neurosurgery and basic motivation; some specific experience referenced</span></div>
+          <div class="score-tier"><span class="tier-num">2</span><span class="tier-desc">Well-structured, specific experience cited, clear career narrative, awareness of training pathway and challenges</span></div>
+          <div class="score-tier"><span class="tier-num">3</span><span class="tier-desc">Exceptional — compelling personal narrative, specific clinical and research experiences, subspecialty interest evident, demonstrates unique value; awareness of current issues in neurosurgery</span></div>
+        </div>
+        <div class="entries-panel">
+          <div class="entries-top">
+            <div class="guide-title">Draft / notes</div>
+            <div class="score-setter">
+              Score: <input type="number" class="score-input" min="0" max="3" id="score-14" value="0" onchange="updateScores()"> / 3
+            </div>
+          </div>
+          <div class="entries-list" id="entries-14"></div>
+          <div class="add-entry-wrap">
+            <input class="entry-input" id="input-14" placeholder="Add key themes or draft sentences..." onkeydown="if(event.key==='Enter')addEntry(14)">
+            <button class="add-btn" onclick="addEntry(14)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="strategy-tip"><strong>Strategy:</strong> Your personal statement is the only domain you fully control on the day. Structure: (1) Why neurosurgery — specific, clinical, personal; (2) What you've done — electives, research, teaching; (3) Why you specifically — unique angle including your entrepreneurial/innovation interests and how that connects to neurosurgery and neurotech; (4) Career vision — spine subspecialty interest, fellowship aspiration, long-term goals. The entrepreneurship angle, used well, is genuinely differentiating — very few applicants bring a business-building mindset to their statement.</div>
+      <div class="notes-wrap">
+        <div class="notes-label">Notes / Draft statement</div>
+        <textarea class="notes-area" id="notes-14" placeholder="Draft your personal statement here. Aim for a compelling opening line that sets you apart..." onchange="save()" style="min-height:140px"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERVIEW -->
+  <div class="section-title" id="interview">Interview preparation</div>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:20px;line-height:1.7">The interview is <strong style="color:var(--text)">90 minutes across 4 stations of 15 minutes each</strong>, held online via Qpercom VIDs. ST1 appointability threshold is <strong style="color:var(--amber)">65%</strong> of marks. Each station has 5 min reading time before it begins.</p>
+
+  <div class="interview-card" id="int-0">
+    <div class="int-header" onclick="toggleInt('int-0')">
+      <div class="int-icon">🧠</div>
+      <div>
+        <div class="int-title">Clinical station</div>
+        <div class="int-sub">Clinical reasoning, neurosurgical knowledge, patient management</div>
+      </div>
+      <span class="chevron" style="margin-left:auto">▼</span>
+    </div>
+    <div class="int-body">
+      <p>You'll be given a clinical scenario — likely a neurosurgical emergency, ward problem, or outpatient dilemma. The assessors want to see <strong>structured thinking, safety awareness, and appropriate escalation</strong>. As a student/FY applicant you are not expected to know neurosurgical technique — you are expected to know how to think clinically and communicate clearly.</p>
+      <p><strong>Key topics to master:</strong> Raised ICP management, GCS assessment and trauma, subarachnoid haemorrhage, spinal cord compression, post-op neurosurgery complications, consent, capacity.</p>
+      <div style="margin-top:12px">
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c1"> <span>Read and summarise the NICE head injury guideline (CG176)</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c2"> <span>Practice ABCDE approach applied to 5 neurosurgical scenarios</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c3"> <span>Know the Hunt &amp; Hess, Fisher, WFNS scales for SAH</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c4"> <span>Revise spinal cord syndromes and dermatomes</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;"><input type="checkbox" class="prep-check" id="c5"> <span>Practice structured presentations aloud (mock with a senior)</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="interview-card" id="int-1">
+    <div class="int-header" onclick="toggleInt('int-1')">
+      <div class="int-icon">📋</div>
+      <div>
+        <div class="int-title">Management station</div>
+        <div class="int-sub">NHS systems, teamwork, professional scenarios, leadership</div>
+      </div>
+      <span class="chevron" style="margin-left:auto">▼</span>
+    </div>
+    <div class="int-body">
+      <p>Scenarios involving <strong>team conflict, clinical governance, error reporting, breaking bad news, or managing competing priorities</strong>. Framework thinking is rewarded. Know the four pillars of medical ethics (autonomy, beneficence, non-maleficence, justice). Show awareness of consultant responsibilities and team dynamics.</p>
+      <div style="margin-top:12px">
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c6"> <span>Read Good Medical Practice (GMC) — know the key domains</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c7"> <span>Practise a "colleague performing poorly" scenario using SPIES framework</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c8"> <span>Study the NHS duty of candour and how it applies to surgical errors</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;"><input type="checkbox" class="prep-check" id="c9"> <span>Know what a mortality and morbidity meeting is and how to present at one</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="interview-card" id="int-2">
+    <div class="int-header" onclick="toggleInt('int-2')">
+      <div class="int-icon">📞</div>
+      <div>
+        <div class="int-title">Telephone referrals station</div>
+        <div class="int-sub">Structured referrals, prioritisation, communication under pressure</div>
+      </div>
+      <span class="chevron" style="margin-left:auto">▼</span>
+    </div>
+    <div class="int-body">
+      <p>You'll receive a referral scenario and be assessed on how you take a history, prioritise urgency, communicate clearly, and manage the clinical situation. Use <strong>SBAR (Situation, Background, Assessment, Recommendation)</strong>. This station rewards composure and structured communication over clinical knowledge.</p>
+      <div style="margin-top:12px">
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c10"> <span>Drill SBAR until it's instinctive — use it for every handover in FY</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c11"> <span>Practise 5 neurosurgical referral scenarios aloud (head injury, SAH, cord compression, post-op deterioration, shunt malfunction)</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;"><input type="checkbox" class="prep-check" id="c12"> <span>Know when to activate critical care vs. watch and wait vs. immediate theatre</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="interview-card" id="int-3">
+    <div class="int-header" onclick="toggleInt('int-3')">
+      <div class="int-icon">⭐</div>
+      <div>
+        <div class="int-title">Motivation &amp; understanding of specialty</div>
+        <div class="int-sub">Why neurosurgery, career plan, awareness of current challenges</div>
+      </div>
+      <span class="chevron" style="margin-left:auto">▼</span>
+    </div>
+    <div class="int-body">
+      <p>Your chance to stand out. Assessors want to see <strong>genuine, specific motivation</strong> — not "I find the brain fascinating." They want to know what you've done, what you've read, what your career vision is, and that you understand the realities of training. Your entrepreneurial angle and interest in neurotech is a genuine differentiator here if delivered confidently.</p>
+      <div style="margin-top:12px">
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c13"> <span>Prepare a 2-minute "why neurosurgery" answer with specific experiences</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c14"> <span>Know 3 current challenges facing UK neurosurgery (workforce, technology, access)</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c15"> <span>Read a recent SBNS position statement or neurosurgery policy document</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;margin-bottom:8px"><input type="checkbox" class="prep-check" id="c16"> <span>Articulate your subspecialty interest (spine) and why — with clinical reasoning</span></label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text2);cursor:pointer;"><input type="checkbox" class="prep-check" id="c17"> <span>Prepare for "What would you do if you didn't get in?" — answer honestly but with conviction</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY DATES -->
+  <div class="section-title" id="timeline">2026 recruitment key dates</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:40px">
+    <div class="timeline">
+      <div class="tl-item"><span class="tl-date">23 Oct 2025</span><span class="tl-event"><strong>Applications open</strong> — Oriel system, 10am</span></div>
+      <div class="tl-item"><span class="tl-date">20 Nov 2025</span><span class="tl-event"><strong>Application deadline</strong> — 4pm. No exceptions.</span></div>
+      <div class="tl-item"><span class="tl-date">TBC</span><span class="tl-event"><strong>MSRA window</strong> — computer-based assessment, accounts for 40% of shortlisting score</span></div>
+      <div class="tl-item"><span class="tl-date">20 Jan 2026</span><span class="tl-event"><strong>Shortlisting</strong> — scored by 2 trained assessors. Results not available same day.</span></div>
+      <div class="tl-item"><span class="tl-date">16–17 Mar 2026</span><span class="tl-event"><strong>Interviews</strong> — online, 4 stations × 15 min. Qpercom VIDs platform.</span></div>
+      <div class="tl-item"><span class="tl-date">24 Mar 2026</span><span class="tl-event"><strong>Initial offers</strong> — by 5pm. 48h to respond (excl. weekends).</span></div>
+      <div class="tl-item"><span class="tl-date">2 Apr 2026</span><span class="tl-event"><strong>Holding deadline</strong> — 1pm</span></div>
+      <div class="tl-item"><span class="tl-date">8 Apr 2026</span><span class="tl-event"><strong>Upgrade deadline</strong> — 4pm</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PROFILE MODAL -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h2>Edit profile</h2>
+    <label>Full name</label>
+    <input type="text" id="m-name" placeholder="e.g. Alex Smith">
+    <label>Current stage</label>
+    <select id="m-stage">
+      <option>MS1</option><option>MS2</option><option>MS3</option><option selected>MS4</option><option>MS5</option><option>FY1</option><option>FY2</option><option>CT1</option><option>CT2</option>
+    </select>
+    <label>Medical school / institution</label>
+    <input type="text" id="m-school" placeholder="e.g. University of Edinburgh">
+    <div class="modal-btns">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProfile()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const MAXES = [3,2,3,2,1,1,2,2,3,3,2,3,3,3,3];
+const TOTAL_MAX = 36;
+
+function load() {
+  const d = JSON.parse(localStorage.getItem('ns_portfolio') || '{}');
+  if(d.name) document.getElementById('display-name').textContent = d.name;
+  if(d.year) document.getElementById('display-year').textContent = d.year;
+  if(d.school) document.getElementById('display-school').textContent = d.school + ' — Aspiring Neurosurgeon';
+  if(d.mname) document.getElementById('m-name').value = d.mname;
+  if(d.mstage) document.getElementById('m-stage').value = d.mstage;
+  if(d.mschool) document.getElementById('m-school').value = d.mschool;
+  for(let i=0;i<15;i++){
+    const sc = d['score_'+i] || 0;
+    document.getElementById('score-'+i).value = sc;
+    if(d['notes_'+i]) document.getElementById('notes-'+i).value = d['notes_'+i];
+    const entries = d['entries_'+i] || [];
+    entries.forEach(e => renderEntry(i, e.text, e.date, false));
+  }
+  // Checkboxes
+  for(let c=1;c<=17;c++){
+    const el = document.getElementById('c'+c);
+    if(el && d['c'+c]) el.checked = d['c'+c];
+  }
+  updateScores();
+}
+
+function save() {
+  const d = {};
+  d.name = document.getElementById('display-name').textContent;
+  d.year = document.getElementById('display-year').textContent;
+  d.school = document.getElementById('display-school').textContent.replace(' — Aspiring Neurosurgeon','');
+  d.mname = document.getElementById('m-name').value;
+  d.mstage = document.getElementById('m-stage').value;
+  d.mschool = document.getElementById('m-school').value;
+  for(let i=0;i<15;i++){
+    d['score_'+i] = parseInt(document.getElementById('score-'+i).value)||0;
+    d['notes_'+i] = document.getElementById('notes-'+i).value;
+    d['entries_'+i] = [];
+    document.querySelectorAll('#entries-'+i+' .entry-item').forEach(el=>{
+      d['entries_'+i].push({text: el.querySelector('.entry-content').textContent, date: el.querySelector('.entry-date').textContent});
+    });
+  }
+  for(let c=1;c<=17;c++){
+    const el = document.getElementById('c'+c);
+    if(el) d['c'+c] = el.checked;
+  }
+  localStorage.setItem('ns_portfolio', JSON.stringify(d));
+}
+
+function updateScores() {
+  let total = 0, done = 0;
+  for(let i=0;i<15;i++){
+    const sc = Math.min(parseInt(document.getElementById('score-'+i).value)||0, MAXES[i]);
+    const badge = document.getElementById('badge-'+i);
+    badge.textContent = sc + ' / ' + MAXES[i];
+    badge.className = 'score-badge ' + (sc===MAXES[i] ? 'full' : sc>0 ? 'partial' : 'zero');
+    total += sc;
+    if(sc > 0) done++;
+  }
+  const pct = Math.round(total/TOTAL_MAX*100);
+  document.getElementById('total-score').textContent = total;
+  document.getElementById('total-pct').textContent = pct + '%';
+  document.getElementById('main-bar').style.width = pct + '%';
+  document.getElementById('main-bar').className = 'progress-bar' + (pct>=65?' good':pct>=40?' warn':'');
+  document.getElementById('domains-done').textContent = done;
+  document.getElementById('domains-pct').textContent = Math.round(done/15*100) + '%';
+  document.getElementById('domains-bar').style.width = Math.round(done/15*100) + '%';
+  save();
+}
+
+function toggle(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+function toggleInt(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+  const chev = el.querySelector('.chevron');
+  chev.style.transform = el.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+function addEntry(idx) {
+  const input = document.getElementById('input-'+idx);
+  const text = input.value.trim();
+  if(!text) return;
+  renderEntry(idx, text, new Date().toLocaleDateString('en-GB',{month:'short',year:'numeric'}), true);
+  input.value = '';
+  save();
+}
+
+function renderEntry(idx, text, date, animate) {
+  const list = document.getElementById('entries-'+idx);
+  // Remove empty state
+  const empty = list.querySelector('.empty-state');
+  if(empty) empty.remove();
+  const div = document.createElement('div');
+  div.className = 'entry-item';
+  if(animate) div.style.animation = 'fadeIn 0.2s ease';
+  div.innerHTML = `<span class="entry-content">${escHtml(text)}</span><span class="entry-date">${date}</span><button class="del-btn" onclick="delEntry(this)">×</button>`;
+  list.appendChild(div);
+  checkEmpty(idx);
+}
+
+function delEntry(btn) {
+  const item = btn.closest('.entry-item');
+  const list = item.parentElement;
+  item.remove();
+  // find index
+  const id = list.id.replace('entries-','');
+  checkEmpty(parseInt(id));
+  save();
+}
+
+function checkEmpty(idx) {
+  const list = document.getElementById('entries-'+idx);
+  if(!list.querySelector('.entry-item') && !list.querySelector('.empty-state')) {
+    const div = document.createElement('div');
+    div.className = 'empty-state';
+    div.textContent = 'No entries yet';
+    list.appendChild(div);
+  }
+}
+
+function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function openModal() { document.getElementById('modal').classList.add('show'); }
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+function saveProfile() {
+  const name = document.getElementById('m-name').value || 'Your Name';
+  const stage = document.getElementById('m-stage').value;
+  const school = document.getElementById('m-school').value || 'University';
+  document.getElementById('display-name').textContent = name;
+  document.getElementById('display-year').textContent = stage;
+  document.getElementById('display-school').textContent = school + ' — Aspiring Neurosurgeon';
+  closeModal();
+  save();
+}
+
+function exportPDF() { window.print(); }
+
+// Init empty states
+for(let i=0;i<15;i++) checkEmpty(i);
+
+// Event listeners for checkboxes
+document.querySelectorAll('.prep-check').forEach(c => c.addEventListener('change', save));
+
+// Load on start
+load();
+</script>
+
+<style>
+@keyframes fadeIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+@media print {
+  .header, .nav-pills, .btn, .add-entry-wrap, .score-input, .modal-backdrop { display: none !important; }
+  .domain-body { display: block !important; }
+  .int-body { display: block !important; }
+  body { background: white; color: black; }
+}
+</style>
+</body>
+</html>
